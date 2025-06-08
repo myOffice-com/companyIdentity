@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CompanyIdentityRepository extends JpaRepository<CompanyIdentity, String> {
@@ -15,7 +16,7 @@ public interface CompanyIdentityRepository extends JpaRepository<CompanyIdentity
      * @param companyId the ID of the company
      * @return the CompanyIdentity associated with the given company ID, or null if not found
      */
-    CompanyIdentity findByCompanyId(String companyId);
+    Optional<CompanyIdentity> findByCompanyId(String companyId);
 
 
     List<CompanyIdentity> findByIsExpired(boolean b);

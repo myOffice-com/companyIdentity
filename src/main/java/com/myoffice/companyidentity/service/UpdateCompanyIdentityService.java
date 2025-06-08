@@ -10,6 +10,6 @@ public interface UpdateCompanyIdentityService {
      * @param request the request containing the details to update the company identity
      * @return a response indicating the result of the update operation
      */
-    void updateCompanyIdentity(UpdateCompanyIdentityRequest request);
+    void updateCompanyIdentity(String companyId,UpdateCompanyIdentityRequest request);
 
 }

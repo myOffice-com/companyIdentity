@@ -1,6 +1,6 @@
 package com.myoffice.companyidentity.serviceimpl;
 
-import com.myoffice.companyidentity.dto.GetCompanyIdentitiesList;
+import com.myoffice.companyidentity.dto.GetCompanyIdentitiesDTO;
 import com.myoffice.companyidentity.entity.CompanyIdentity;
 import com.myoffice.companyidentity.mappers.GetAllCompanyIdentitiesMapper;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
@@ -23,11 +23,9 @@ public class GetAllCompanyIdentitiesServiceImpl implements GetAllCompanyIdentiti
     private static final String ALL_INACTIVE_COMPANY_IDENTITIES = "inactive";
 
     private final CompanyIdentityRepository companyIdentityRepository;
-    private final GetAllCompanyIdentitiesMapper getAllCompanyIdentitiesMapper;
 
-    public GetAllCompanyIdentitiesServiceImpl(CompanyIdentityRepository companyIdentityRepository, GetAllCompanyIdentitiesMapper getAllCompanyIdentitiesMapper) {
+    public GetAllCompanyIdentitiesServiceImpl(CompanyIdentityRepository companyIdentityRepository) {
         this.companyIdentityRepository = companyIdentityRepository;
-        this.getAllCompanyIdentitiesMapper = getAllCompanyIdentitiesMapper;
     }
 
     /**
@@ -38,7 +36,7 @@ public class GetAllCompanyIdentitiesServiceImpl implements GetAllCompanyIdentiti
      */
     @Transactional(readOnly = true)
     @Override
-    public List<GetCompanyIdentitiesList> getAllCompanyIdentities(String filterKey) {
+    public List<GetCompanyIdentitiesDTO> getAllCompanyIdentities(String filterKey) {
         logger.info("Fetching company identities with filter: {}", filterKey);
 
         List<CompanyIdentity> companyIdentities = switch (filterKey.toLowerCase()) {
@@ -56,7 +54,7 @@ public class GetAllCompanyIdentitiesServiceImpl implements GetAllCompanyIdentiti
             return new ArrayList<>();
         }
 
-        return getAllCompanyIdentitiesMapper.companyIdentitiesToGetCompanyIdentitiesList(companyIdentities);
+        return GetAllCompanyIdentitiesMapper.INSTANCE.companyIdentitiesToGetCompanyIdentitiesDTOList(companyIdentities);
     }
 
 }

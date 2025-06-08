@@ -1,6 +1,6 @@
 package com.myoffice.companyidentity.controller;
 
-    import com.myoffice.companyidentity.dto.GetCompanyIdentitiesList;
+    import com.myoffice.companyidentity.dto.GetCompanyIdentitiesDTO;
     import com.myoffice.companyidentity.dto.GetCompanyIdentityDTO;
     import com.myoffice.companyidentity.request.CreateCompanyIdentityRequest;
     import com.myoffice.companyidentity.request.UpdateCompanyIdentityRequest;
@@ -61,7 +61,7 @@ package com.myoffice.companyidentity.controller;
         public ResponseEntity<CreateCompanyIdentityResponse> createCompanyIdentity(@RequestBody CreateCompanyIdentityRequest request) {
             logger.info("Received request to create company identity: {}", request);
             CreateCompanyIdentityResponse response = createCompanyIdentityService.createCompanyIdentity(request);
-            logger.info("Successfully created company identity with ID: {}", response.getCompanyId());
+            logger.info("Successfully created company identity with ID: {}", response.companyId());
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
 
@@ -71,11 +71,12 @@ package com.myoffice.companyidentity.controller;
          * @param request The request containing updated company identity details.
          * @return ResponseEntity with HTTP status.
          */
-        @PatchMapping("/update")
-        public ResponseEntity<Object> updateCompanyIdentity(@RequestBody UpdateCompanyIdentityRequest request) {
-            logger.info("Received request to update company identity with ID: {}", request.getCompanyId());
-            updateCompanyIdentityService.updateCompanyIdentity(request);
-            logger.info("Successfully updated company identity with ID: {}", request.getCompanyId());
+        @PatchMapping("/update/{companyId}")
+        public ResponseEntity<Object> updateCompanyIdentity(@PathVariable String companyId,
+                                                            @RequestBody UpdateCompanyIdentityRequest request) {
+            logger.info("Received request to update company identity with ID: {}", companyId);
+            updateCompanyIdentityService.updateCompanyIdentity(companyId,request);
+            logger.info("Successfully updated company identity with ID: {}", companyId);
             return new ResponseEntity<>(HttpStatusCode.valueOf(204));
         }
 
@@ -86,9 +87,9 @@ package com.myoffice.companyidentity.controller;
          * @return ResponseEntity with the list of company identities and HTTP status.
          */
         @GetMapping("/{filterKey}")
-        public ResponseEntity<List<GetCompanyIdentitiesList>> getCompanyIdentities(@PathVariable String filterKey) {
+        public ResponseEntity<List<GetCompanyIdentitiesDTO>> getCompanyIdentities(@PathVariable String filterKey) {
             logger.info("Received request to retrieve company identities with filter key: {}", filterKey);
-            List<GetCompanyIdentitiesList> companyIdentities = getAllCompanyIdentitiesService.getAllCompanyIdentities(filterKey);
+            List<GetCompanyIdentitiesDTO> companyIdentities = getAllCompanyIdentitiesService.getAllCompanyIdentities(filterKey);
             logger.info("Successfully retrieved {} company identities for filter key: {}", companyIdentities.size(), filterKey);
             return ResponseEntity.ok(companyIdentities);
         }

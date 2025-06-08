@@ -1,6 +1,6 @@
 package com.myoffice.companyidentity.service;
 
-import com.myoffice.companyidentity.dto.GetCompanyIdentitiesList;
+import com.myoffice.companyidentity.dto.GetCompanyIdentitiesDTO;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface GetAllCompanyIdentitiesService {
      *
      * @return a list of all company identities
      */
-    List<GetCompanyIdentitiesList> getAllCompanyIdentities(String filterKey);
+    List<GetCompanyIdentitiesDTO> getAllCompanyIdentities(String filterKey);
 }

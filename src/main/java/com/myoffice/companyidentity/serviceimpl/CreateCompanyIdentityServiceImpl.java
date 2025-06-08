@@ -14,12 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateCompanyIdentityServiceImpl implements CreateCompanyIdentityService {
 
     private final CompanyIdentityRepository companyIdentityRepository;
-    private final CreateCompanyIdentityMapper createCompanyIdentityMapper;
     private final IdGenerator idGenerator;
 
-    public CreateCompanyIdentityServiceImpl(CompanyIdentityRepository companyIdentityRepository, CreateCompanyIdentityMapper createCompanyIdentityMapper, IdGenerator idGenerator) {
+    public CreateCompanyIdentityServiceImpl(CompanyIdentityRepository companyIdentityRepository, IdGenerator idGenerator) {
         this.companyIdentityRepository = companyIdentityRepository;
-        this.createCompanyIdentityMapper = createCompanyIdentityMapper;
         this.idGenerator = idGenerator;
     }
 
@@ -34,9 +32,9 @@ public class CreateCompanyIdentityServiceImpl implements CreateCompanyIdentitySe
     @Transactional
     @Override
     public CreateCompanyIdentityResponse createCompanyIdentity(CreateCompanyIdentityRequest request) {
-        CompanyIdentity companyIdentity = createCompanyIdentityMapper.createCompanyIdentityRequestToEntity(request);
+        CompanyIdentity companyIdentity = CreateCompanyIdentityMapper.INSTANCE.createCompanyIdentityRequestToEntity(request);
         companyIdentity.setCompanyId(idGenerator.generateId(10));
-        return createCompanyIdentityMapper.companyIdentityToCreateCompanyIdentityResponse(companyIdentityRepository.save(companyIdentity));
+        return CreateCompanyIdentityMapper.INSTANCE.companyIdentityToCreateCompanyIdentityResponse(companyIdentityRepository.save(companyIdentity));
     }
 
 

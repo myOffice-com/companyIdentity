@@ -1,7 +1,8 @@
 package com.myoffice.companyidentity.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -11,9 +12,11 @@ import java.time.LocalDate;
  * Entity class representing the `company_identity` table in the database.
  * This class is used to store and retrieve company identity information.
  */
-@Data
 @Entity
 @Table(name = "company_identity")
+@AllArgsConstructor
+@NoArgsConstructor
+@SuppressWarnings("LombokGetterMayBeUsed,LombokSetterMayBeUsed")
 public class CompanyIdentity implements Serializable {
 
     @Serial
@@ -85,4 +88,92 @@ public class CompanyIdentity implements Serializable {
      */
     @Column(name = "is_expired", nullable = false)
     private boolean isExpired;
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCgiNumber() {
+        return cgiNumber;
+    }
+
+    public void setCgiNumber(String cgiNumber) {
+        this.cgiNumber = cgiNumber;
+    }
+
+    public String getCompanyAdminId() {
+        return companyAdminId;
+    }
+
+    public void setCompanyAdminId(String companyAdminId) {
+        this.companyAdminId = companyAdminId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(boolean expired) {
+        isExpired = expired;
+    }
 }

@@ -33,24 +33,24 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
      */
     @Transactional
     @Override
-    public void updateCompanyIdentity(UpdateCompanyIdentityRequest request) {
-        CompanyIdentity companyIdentity = getCompanyIdentity(request);
+    public void updateCompanyIdentity(String companyId,UpdateCompanyIdentityRequest request) {
+        CompanyIdentity companyIdentity = getCompanyIdentity(companyId);
         mergeCompanyIdentity(companyIdentity, request);
         companyIdentityRepository.save(companyIdentity);
-        logger.info("Company identity updated successfully for ID: {}{}", request.getCompanyId(),request);
+        logger.info("Company identity updated successfully for ID: {}{}", companyId,request);
     }
 
     /**
      * Retrieves the existing CompanyIdentity entity for the given update request.
      *
-     * @param request the update request containing the companyId
+     * @param companyId the update request containing the companyId
      * @return the managed CompanyIdentity entity
      * @throws EntityNotFoundException if the entity does not exist in the repository
      */
-    private CompanyIdentity getCompanyIdentity(UpdateCompanyIdentityRequest request) {
-        return companyIdentityRepository.findById(request.getCompanyId())
+    private CompanyIdentity getCompanyIdentity(String companyId) {
+        return companyIdentityRepository.findById(companyId)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Company identity not found for ID: " + request.getCompanyId())
+                        new EntityNotFoundException("Company identity not found for ID: " + companyId)
                 );
     }
 
@@ -64,15 +64,15 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
      */
     private void mergeCompanyIdentity(CompanyIdentity companyIdentity,
                                       UpdateCompanyIdentityRequest request) {
-        companyIdentity.setCompanyName(request.getCompanyName());
-        companyIdentity.setAddress(request.getAddress());
-        companyIdentity.setCgiNumber(request.getCgiNumber());
-        companyIdentity.setCompanyAdminId(request.getCompanyAdminId());
-        companyIdentity.setPassword(request.getPassword());
-        companyIdentity.setStartDate(request.getStartDate());
-        companyIdentity.setStartTime(request.getStartTime());
-        companyIdentity.setEndDate(request.getEndDate());
-        companyIdentity.setEndTime(request.getEndTime());
+        companyIdentity.setCompanyName(request.companyName());
+        companyIdentity.setAddress(request.address());
+        companyIdentity.setCgiNumber(request.cgiNumber());
+        companyIdentity.setCompanyAdminId(request.companyAdminId());
+        companyIdentity.setPassword(request.password());
+        companyIdentity.setStartDate(request.startDate());
+        companyIdentity.setStartTime(request.startTime());
+        companyIdentity.setEndDate(request.endDate());
+        companyIdentity.setEndTime(request.endTime());
     }
 
 }

@@ -1,71 +1,64 @@
 package com.myoffice.companyidentity.dto;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class GetCompanyIdentityDTO implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 492789791913183401L;
+/**
+ * Data Transfer Object (DTO) for retrieving company identity information.
+ * This record is used to transfer company identity data between layers of the application.
+ */
+public record GetCompanyIdentityDTO(
 
     /**
      * Unique identifier for the company.
      */
-    private String companyId;
+    String companyId,
 
     /**
      * Name of the company.
      */
-    private String companyName;
+    String companyName,
 
     /**
      * Address of the company.
      */
-    private String address;
+    String address,
 
     /**
      * CGI (Corporate Group Identifier) number of the company.
      */
-    private String cgiNumber;
+    String cgiNumber,
 
     /**
      * Identifier for the company administrator.
      */
-    private String companyAdminId;
+    String companyAdminId,
 
     /**
      * Password associated with the company account.
      */
-    private String password;
+    String password,
 
     /**
      * Start date of the company's operations.
      */
-    private LocalDate startDate;
+    LocalDate startDate,
 
     /**
      * Start time of the company's operations.
      */
-    private String startTime;
+    String startTime,
 
     /**
      * End date of the company's operations.
      */
-    private LocalDate endDate;
+    LocalDate endDate,
 
     /**
      * End time of the company's operations.
      */
-    private String endTime;
-
-
-}
+     String endTime) implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 492789791913183401L;
+    }
