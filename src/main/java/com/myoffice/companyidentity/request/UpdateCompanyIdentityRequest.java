@@ -1,4 +1,4 @@
-package com.myoffice.companyidentity.response;
+package com.myoffice.companyidentity.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,10 +11,10 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCompanyIdentityResponse implements Serializable {
+public class UpdateCompanyIdentityRequest implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 4241011408955376889L;
+    private static final long serialVersionUID = 1480119316683378949L;
 
     /**
      * Unique identifier for the company.

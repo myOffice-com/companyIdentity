@@ -6,7 +6,6 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Entity class representing the `company_identity` table in the database.
@@ -73,18 +72,11 @@ public class CompanyIdentity implements Serializable {
      * End date of the company's operations.
      */
     @Column(name = "end_date", nullable = false)
-    private String endDate;
+    private LocalDate endDate;
 
     /**
      * End time of the company's operations.
      */
     @Column(name = "end_time", nullable = false)
     private String endTime;
-
-    /**
-     * List of roles associated with the company.
-     * This is a one-to-many relationship with the `CompanyRoles` entity.
-     */
-    @OneToMany(mappedBy = "companyIdentity", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<CompanyRoles> companyRoles;
 }
