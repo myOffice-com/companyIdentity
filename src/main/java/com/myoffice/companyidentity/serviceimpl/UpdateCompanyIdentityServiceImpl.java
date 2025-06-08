@@ -22,10 +22,8 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
 
      /**
       * Updates an existing CompanyIdentity entity using data from the update request.
-      * <p>
       * This method loads the current entity, merges new values, and persists the changes
       * within a transactional context. Any runtime exceptions will trigger a rollback.
-      * </p>
       *
       * @param request a DTO containing the updated fields and target companyId
       * @throws EntityNotFoundException if no CompanyIdentity is found for the provided ID
@@ -54,10 +52,9 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
 
      /**
       * Merges the fields from the update request into the existing CompanyIdentity entity.
-      * <p>
       * Note: This overwrites all provided fields in the entity with values from the request.
       * Ensure the request contains all necessary data or adjust logic for partial updates.
-      * </p>
+      *
       *
       * @param companyIdentity the persistent entity to be updated
       * @param request the DTO containing new field values
