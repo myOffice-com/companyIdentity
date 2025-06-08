@@ -10,39 +10,43 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
- /* Service implementation for updating and retrieving CompanyIdentity entities.**/
+/* Service implementation for updating and retrieving CompanyIdentity entities.**/
 @Service
 public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentityService {
 
-  private final CompanyIdentityRepository companyIdentityRepository;
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UpdateCompanyIdentityServiceImpl.class);
+
+    private final CompanyIdentityRepository companyIdentityRepository;
+
     public UpdateCompanyIdentityServiceImpl(CompanyIdentityRepository companyIdentityRepository) {
         this.companyIdentityRepository = companyIdentityRepository;
     }
 
 
-     /**
-      * Updates an existing CompanyIdentity entity using data from the update request.
-      * This method loads the current entity, merges new values, and persists the changes
-      * within a transactional context. Any runtime exceptions will trigger a rollback.
-      *
-      * @param request a DTO containing the updated fields and target companyId
-      * @throws EntityNotFoundException if no CompanyIdentity is found for the provided ID
-      */
+    /**
+     * Updates an existing CompanyIdentity entity using data from the update request.
+     * This method loads the current entity, merges new values, and persists the changes
+     * within a transactional context. Any runtime exceptions will trigger a rollback.
+     *
+     * @param request a DTO containing the updated fields and target companyId
+     * @throws EntityNotFoundException if no CompanyIdentity is found for the provided ID
+     */
     @Transactional
     @Override
     public void updateCompanyIdentity(UpdateCompanyIdentityRequest request) {
         CompanyIdentity companyIdentity = getCompanyIdentity(request);
         mergeCompanyIdentity(companyIdentity, request);
         companyIdentityRepository.save(companyIdentity);
+        logger.info("Company identity updated successfully for ID: {}{}", request.getCompanyId(),request);
     }
 
-     /**
-      * Retrieves the existing CompanyIdentity entity for the given update request.
-      *
-      * @param request the update request containing the companyId
-      * @return the managed CompanyIdentity entity
-      * @throws EntityNotFoundException if the entity does not exist in the repository
-      */
+    /**
+     * Retrieves the existing CompanyIdentity entity for the given update request.
+     *
+     * @param request the update request containing the companyId
+     * @return the managed CompanyIdentity entity
+     * @throws EntityNotFoundException if the entity does not exist in the repository
+     */
     private CompanyIdentity getCompanyIdentity(UpdateCompanyIdentityRequest request) {
         return companyIdentityRepository.findById(request.getCompanyId())
                 .orElseThrow(() ->
@@ -50,15 +54,14 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
                 );
     }
 
-     /**
-      * Merges the fields from the update request into the existing CompanyIdentity entity.
-      * Note: This overwrites all provided fields in the entity with values from the request.
-      * Ensure the request contains all necessary data or adjust logic for partial updates.
-      *
-      *
-      * @param companyIdentity the persistent entity to be updated
-      * @param request the DTO containing new field values
-      */
+    /**
+     * Merges the fields from the update request into the existing CompanyIdentity entity.
+     * Note: This overwrites all provided fields in the entity with values from the request.
+     * Ensure the request contains all necessary data or adjust logic for partial updates.
+     *
+     * @param companyIdentity the persistent entity to be updated
+     * @param request         the DTO containing new field values
+     */
     private void mergeCompanyIdentity(CompanyIdentity companyIdentity,
                                       UpdateCompanyIdentityRequest request) {
         companyIdentity.setCompanyName(request.getCompanyName());

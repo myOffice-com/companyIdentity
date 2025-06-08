@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CreateCompanyIdentityServiceImpl implements CreateCompanyIdentityService {
 
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CreateCompanyIdentityServiceImpl.class);
-
     private final CompanyIdentityRepository companyIdentityRepository;
     private final CreateCompanyIdentityMapper createCompanyIdentityMapper;
     private final IdGenerator idGenerator;
@@ -36,7 +34,6 @@ public class CreateCompanyIdentityServiceImpl implements CreateCompanyIdentitySe
     @Transactional
     @Override
     public CreateCompanyIdentityResponse createCompanyIdentity(CreateCompanyIdentityRequest request) {
-        logger.info("Creating company identity with request: {}", request);
         CompanyIdentity companyIdentity = createCompanyIdentityMapper.createCompanyIdentityRequestToEntity(request);
         companyIdentity.setCompanyId(idGenerator.generateId(10));
         return createCompanyIdentityMapper.companyIdentityToCreateCompanyIdentityResponse(companyIdentityRepository.save(companyIdentity));
