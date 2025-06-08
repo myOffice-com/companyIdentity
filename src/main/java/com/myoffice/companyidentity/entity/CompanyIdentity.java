@@ -79,4 +79,10 @@ public class CompanyIdentity implements Serializable {
      */
     @Column(name = "end_time", nullable = false)
     private String endTime;
+
+    /**
+     * Indicates whether the company identity is expired.
+     */
+    @Column(name = "is_expired", nullable = false)
+    private boolean isExpired;
 }
