@@ -4,6 +4,8 @@ import com.myoffice.companyidentity.entity.CompanyIdentity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CompanyIdentityRepository extends JpaRepository<CompanyIdentity, String> {
 
@@ -16,5 +18,5 @@ public interface CompanyIdentityRepository extends JpaRepository<CompanyIdentity
     CompanyIdentity findByCompanyId(String companyId);
 
 
-
+    List<CompanyIdentity> findByIsExpired(boolean b);
 }

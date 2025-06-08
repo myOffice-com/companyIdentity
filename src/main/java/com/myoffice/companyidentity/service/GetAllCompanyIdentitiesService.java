@@ -10,5 +10,5 @@ public interface GetAllCompanyIdentitiesService {
      *
      * @return a list of all company identities
      */
-    List<GetCompanyIdentitiesList> getAllCompanyIdentities();
+    List<GetCompanyIdentitiesList> getAllCompanyIdentities(String filterKey);
 }
