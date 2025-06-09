@@ -1,10 +1,10 @@
-package com.myoffice.companyidentity.serviceimpl;
+package com.myoffice.companyidentity.serviceimpl.companyidentity;
 
 import com.myoffice.companyidentity.dto.GetCompanyIdentityDTO;
 import com.myoffice.companyidentity.entity.CompanyIdentity;
 import com.myoffice.companyidentity.mappers.GetCompanyIdentityDTOMapper;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
-import com.myoffice.companyidentity.service.GetCompanyIdentityService;
+import com.myoffice.companyidentity.service.companyidentity.GetCompanyIdentityService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

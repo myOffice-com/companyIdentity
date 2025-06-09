@@ -1,11 +1,11 @@
-package com.myoffice.companyidentity.serviceimpl;
+package com.myoffice.companyidentity.serviceimpl.companyidentity;
 
 import com.myoffice.companyidentity.entity.CompanyIdentity;
 import com.myoffice.companyidentity.mappers.CreateCompanyIdentityMapper;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
 import com.myoffice.companyidentity.request.CreateCompanyIdentityRequest;
 import com.myoffice.companyidentity.response.CreateCompanyIdentityResponse;
-import com.myoffice.companyidentity.service.CreateCompanyIdentityService;
+import com.myoffice.companyidentity.service.companyidentity.CreateCompanyIdentityService;
 import com.myoffice.companyidentity.util.IdGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

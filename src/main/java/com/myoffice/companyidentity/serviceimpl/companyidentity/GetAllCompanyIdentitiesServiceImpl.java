@@ -1,10 +1,10 @@
-package com.myoffice.companyidentity.serviceimpl;
+package com.myoffice.companyidentity.serviceimpl.companyidentity;
 
 import com.myoffice.companyidentity.dto.GetCompanyIdentitiesDTO;
 import com.myoffice.companyidentity.entity.CompanyIdentity;
 import com.myoffice.companyidentity.mappers.GetAllCompanyIdentitiesMapper;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
-import com.myoffice.companyidentity.service.GetAllCompanyIdentitiesService;
+import com.myoffice.companyidentity.service.companyidentity.GetAllCompanyIdentitiesService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

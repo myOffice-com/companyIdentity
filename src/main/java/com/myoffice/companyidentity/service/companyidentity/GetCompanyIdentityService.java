@@ -1,4 +1,4 @@
-package com.myoffice.companyidentity.service;
+package com.myoffice.companyidentity.service.companyidentity;
 
 import com.myoffice.companyidentity.dto.GetCompanyIdentityDTO;
 
