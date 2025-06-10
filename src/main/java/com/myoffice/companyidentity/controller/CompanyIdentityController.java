@@ -23,7 +23,7 @@ package com.myoffice.companyidentity.controller;
      * Provides endpoints for creating, updating, and retrieving company identity data.
      */
     @RestController
-    @RequestMapping("/company-identity")
+    @RequestMapping("/api/v1/company-identity")
     public class CompanyIdentityController {
 
         private static final Logger logger = LoggerFactory.getLogger(CompanyIdentityController.class);
