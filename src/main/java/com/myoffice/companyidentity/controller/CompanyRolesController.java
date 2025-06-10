@@ -1,5 +1,6 @@
 package com.myoffice.companyidentity.controller;
 
+import com.myoffice.companyidentity.common.SuccessResponseBody;
 import com.myoffice.companyidentity.dto.GetCompanyRolesDTO;
 import com.myoffice.companyidentity.request.CreateCompanyRolesRequest;
 import com.myoffice.companyidentity.response.CreateCompanyRolesResponse;
@@ -36,7 +37,7 @@ public class CompanyRolesController {
      * @return ResponseEntity with status CREATED
      */
     @PostMapping("/company-roles")
-    public ResponseEntity<CreateCompanyRolesResponse> createCompanyRoles(@Valid @RequestBody CreateCompanyRolesRequest createCompanyRolesRequest){
+    public ResponseEntity<SuccessResponseBody> createCompanyRoles(@Valid @RequestBody CreateCompanyRolesRequest createCompanyRolesRequest){
         logger.info("Received request to create company roles for companyId={}", createCompanyRolesRequest);
         createCompanyRolesService.createCompanyRoles(createCompanyRolesRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -49,10 +50,10 @@ public class CompanyRolesController {
      * @return ResponseEntity with GetCompanyRolesDTO containing the roles of the company
      */
     @GetMapping("/company-roles")
-    public ResponseEntity<GetCompanyRolesDTO> getCompanyRoles(@RequestParam String companyId){
+    public ResponseEntity<SuccessResponseBody> getCompanyRoles(@RequestParam String companyId){
         logger.info("Received request to get company roles for companyId={}", companyId);
         GetCompanyRolesDTO companyRoles = getCompanyRolesService.getCompanyRoles(companyId);
-        return new ResponseEntity<>(companyRoles, HttpStatus.OK);
+        return new ResponseEntity<>(new SuccessResponseBody("Company roles fetched successfully",companyRoles), HttpStatus.OK);
     }
 
 }

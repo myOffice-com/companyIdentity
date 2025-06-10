@@ -1,5 +1,6 @@
 package com.myoffice.companyidentity.controller;
 
+    import com.myoffice.companyidentity.common.SuccessResponseBody;
     import com.myoffice.companyidentity.dto.GetCompanyIdentitiesDTO;
     import com.myoffice.companyidentity.dto.GetCompanyIdentityDTO;
     import com.myoffice.companyidentity.request.CreateCompanyIdentityRequest;
@@ -58,11 +59,11 @@ package com.myoffice.companyidentity.controller;
          * @return ResponseEntity with the created company identity and HTTP status.
          */
         @PostMapping("/create")
-        public ResponseEntity<CreateCompanyIdentityResponse> createCompanyIdentity(@RequestBody CreateCompanyIdentityRequest request) {
+        public ResponseEntity<SuccessResponseBody> createCompanyIdentity(@RequestBody CreateCompanyIdentityRequest request) {
             logger.info("Received request to create company identity: {}", request);
             CreateCompanyIdentityResponse response = createCompanyIdentityService.createCompanyIdentity(request);
             logger.info("Successfully created company identity with ID: {}", response.companyId());
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
+            return new ResponseEntity<>(new SuccessResponseBody("Company Identity created successfully",response), HttpStatus.CREATED);
         }
 
         /**
@@ -87,11 +88,11 @@ package com.myoffice.companyidentity.controller;
          * @return ResponseEntity with the list of company identities and HTTP status.
          */
         @GetMapping("/{filterKey}")
-        public ResponseEntity<List<GetCompanyIdentitiesDTO>> getCompanyIdentities(@PathVariable String filterKey) {
+        public ResponseEntity<SuccessResponseBody> getCompanyIdentities(@PathVariable String filterKey) {
             logger.info("Received request to retrieve company identities with filter key: {}", filterKey);
             List<GetCompanyIdentitiesDTO> companyIdentities = getAllCompanyIdentitiesService.getAllCompanyIdentities(filterKey);
             logger.info("Successfully retrieved {} company identities for filter key: {}", companyIdentities.size(), filterKey);
-            return ResponseEntity.ok(companyIdentities);
+            return ResponseEntity.ok(new SuccessResponseBody("Company identities retrieved successfully", companyIdentities));
         }
 
         /**
@@ -101,10 +102,10 @@ package com.myoffice.companyidentity.controller;
          * @return ResponseEntity with the company identity details and HTTP status.
          */
         @GetMapping("/{companyId}")
-        public ResponseEntity<GetCompanyIdentityDTO> getCompanyIdentity(@PathVariable String companyId) {
+        public ResponseEntity<SuccessResponseBody> getCompanyIdentity(@PathVariable String companyId) {
             logger.info("Received request to retrieve company identity with ID: {}", companyId);
             GetCompanyIdentityDTO companyIdentity = getCompanyIdentityService.getCompanyIdentity(companyId);
             logger.info("Successfully retrieved company identity with ID: {}", companyId);
-            return ResponseEntity.ok(companyIdentity);
+            return ResponseEntity.ok(new SuccessResponseBody("Company identity retrieved successfully", companyIdentity));
         }
     }
