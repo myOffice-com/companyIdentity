@@ -9,6 +9,6 @@ public interface UpdateCompanyRolesService {
      *
      * @param request the request containing the details for updating company roles
      */
-    void updateCompanyRoles( UpdateCompanyRolesRequest request );
+    void updateCompanyRoles(Long roleId, UpdateCompanyRolesRequest request );
 
 }

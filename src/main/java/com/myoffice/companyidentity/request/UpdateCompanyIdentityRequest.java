@@ -1,6 +1,7 @@
 package com.myoffice.companyidentity.request;
 
 
+import com.myoffice.companyidentity.util.FieldErrorConstants;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -19,59 +20,59 @@ public record UpdateCompanyIdentityRequest(
     /**
      * Name of the company.
      */
-    @NotNull(message = "Company name cannot be null")
+    @NotNull(message = FieldErrorConstants.COMPANY_NAME_CANNOT_BE_NULL)
     @Size(min = 1, max = 100, message = "Company name must be between 1 and 100 characters")
     String companyName,
 
     /**
      * Address of the company.
      */
-    @NotNull(message = "Address cannot be null")
-    @Size(min = 1, max = 255, message = "Address must be between 1 and 255 characters")
+    @NotNull(message = FieldErrorConstants.ADDRESS_CANNOT_BE_NULL)
+    @Size(min = 1, max = 255, message = FieldErrorConstants.ADDRESS_MUST_BE_BETWEEN_1_AND_255_CHARACTERS)
     String address,
 
     /**
      * CGI (Corporate Group Identifier) number of the company.
      */
-    @NotNull(message = "CGI number cannot be null")
+    @NotNull(message = FieldErrorConstants.CGI_NUMBER_CANNOT_BE_NULL)
     String cgiNumber,
 
     /**
      * Identifier for the company administrator.
      */
-    @NotNull(message = "Company admin ID cannot be null")
-    @Size(min = 1, max = 10, message = "Company admin ID must be between 1 and 10 characters")
+    @NotNull(message = FieldErrorConstants.COMPANY_ADMIN_ID_CANNOT_BE_NULL)
+    @Size(min = 1, max = 10, message = FieldErrorConstants.COMPANY_ID_MUST_BE_EXACTLY_10_CHARACTERS_LONG)
     String companyAdminId,
 
     /**
      * Password associated with the company account.
      */
-    @NotNull(message = "Password cannot be null")
-    @Size(min = 8, max = 50, message = "Password must be between 8 and 50 characters")
+    @NotNull(message = FieldErrorConstants.PASSWORD_CANNOT_BE_NULL)
+    @Size(min = 8, max = 50, message = FieldErrorConstants.PASSWORD_MUST_BE_BETWEEN_8_AND_50_CHARACTERS)
     String password,
 
     /**
      * Start date of the company's operations.
      */
-    @NotNull(message = "Start date cannot be null")
+    @NotNull(message = FieldErrorConstants.START_DATE_CANNOT_BE_NULL)
     LocalDate startDate,
 
     /**
      * Start time of the company's operations.
      */
-    @NotNull(message = "Start time cannot be null")
+    @NotNull(message = FieldErrorConstants.START_TIME_CANNOT_BE_NULL)
     String startTime,
 
     /**
      * End date of the company's operations.
      */
-    @NotNull(message = "End date cannot be null")
+    @NotNull(message = FieldErrorConstants.END_DATE_CANNOT_BE_NULL)
     LocalDate endDate,
 
     /**
      * End time of the company's operations.
      */
-    @NotNull(message = "End time cannot be null")
+    @NotNull(message = FieldErrorConstants.END_TIME_CANNOT_BE_NULL)
     String endTime
 ) implements Serializable {
     @Serial

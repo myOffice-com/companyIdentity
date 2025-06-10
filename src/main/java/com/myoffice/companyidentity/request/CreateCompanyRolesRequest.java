@@ -1,5 +1,6 @@
 package com.myoffice.companyidentity.request;
 
+import com.myoffice.companyidentity.util.FieldErrorConstants;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -12,14 +13,14 @@ public record CreateCompanyRolesRequest(
         /**
          * Identifier for the company to which the role belongs.
          */
-        @NotNull(message = "Company ID cannot be null")
-        @Size(min = 10, max = 10, message = "Company ID must be exactly 10 characters long")
+        @NotNull(message = FieldErrorConstants.COMPANY_ID_CANNOT_BE_NULL)
+        @Size(min = 10, max = 10, message =FieldErrorConstants.COMPANY_ID_MUST_BE_EXACTLY_10_CHARACTERS_LONG)
         String companyId,
 
         /**
          * List of roles to be created for the company.
          */
-        @NotNull(message = "Roles cannot be null")
+        @NotNull(message = FieldErrorConstants.ROLES_CANNOT_BE_NULL)
         List<String> roles
 
 ) implements Serializable {
