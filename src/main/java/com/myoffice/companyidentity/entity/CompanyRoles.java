@@ -1,9 +1,6 @@
 package com.myoffice.companyidentity.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +26,7 @@ public class CompanyRoles implements Serializable {
      * Unique identifier for the role.
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private long roleId;
 

@@ -73,6 +73,7 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
         companyIdentity.setStartTime(request.startTime());
         companyIdentity.setEndDate(request.endDate());
         companyIdentity.setEndTime(request.endTime());
+        companyIdentity.setExpired(request.isExpired());
     }
 
 }

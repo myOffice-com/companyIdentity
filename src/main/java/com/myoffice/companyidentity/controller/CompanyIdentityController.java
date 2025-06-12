@@ -87,7 +87,7 @@ package com.myoffice.companyidentity.controller;
          * @param filterKey The filter key to search for company identities.
          * @return ResponseEntity with the list of company identities and HTTP status.
          */
-        @GetMapping("/{filterKey}")
+        @GetMapping("/all/{filterKey}")
         public ResponseEntity<SuccessResponseBody> getCompanyIdentities(@PathVariable String filterKey) {
             logger.info("Received request to retrieve company identities with filter key: {}", filterKey);
             List<GetCompanyIdentitiesDTO> companyIdentities = getAllCompanyIdentitiesService.getAllCompanyIdentities(filterKey);

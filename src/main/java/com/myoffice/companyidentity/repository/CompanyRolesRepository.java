@@ -13,8 +13,6 @@ public interface CompanyRolesRepository extends JpaRepository<CompanyRoles,Long>
  
     void deleteByCompanyId(String companyId);
 
-    void deleteByCompanyId(String companyId);
-
     List<CompanyRoles> findAllByCompanyId(String companyId);
 
 

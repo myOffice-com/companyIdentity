@@ -55,12 +55,11 @@ public class CreateCompanyRolesServiceImpl implements CreateCompanyRolesService 
         List<CompanyRoles> newRoles = new ArrayList<>();
         request.roles().forEach(roleName -> {
             CompanyRoles role = new CompanyRoles();
-            role.setRoleId(Long.parseLong(idGenerator.generateId(10)));
             role.setCompanyId(request.companyId());
             role.setRoleName(roleName);
             newRoles.add(role);
+            companyRolesRepository.save(role);
         });
-        companyRolesRepository.saveAll(newRoles);
         logger.info("Saved {} roles for companyId={}", newRoles.size(), request.companyId());
     }
 

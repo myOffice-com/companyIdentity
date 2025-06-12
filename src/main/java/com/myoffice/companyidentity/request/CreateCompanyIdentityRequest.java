@@ -71,7 +71,10 @@ public record CreateCompanyIdentityRequest(
      * End time of the company's operations.
      */
     @NotNull(message = FieldErrorConstants.END_TIME_CANNOT_BE_NULL)
-    String endTime
+    String endTime,
+
+    boolean isExpired
+
 ) implements Serializable {
     @Serial
     private static final long serialVersionUID = 1961706458556934210L;
