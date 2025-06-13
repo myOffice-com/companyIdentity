@@ -58,8 +58,8 @@ public class CreateCompanyRolesServiceImpl implements CreateCompanyRolesService 
             role.setCompanyId(request.companyId());
             role.setRoleName(roleName);
             newRoles.add(role);
-            companyRolesRepository.save(role);
         });
+        companyRolesRepository.saveAll(newRoles);
         logger.info("Saved {} roles for companyId={}", newRoles.size(), request.companyId());
     }
 

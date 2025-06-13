@@ -2,6 +2,7 @@ package com.myoffice.companyidentity.serviceimpl.companyidentity;
 
 import com.myoffice.companyidentity.dto.GetCompanyIdentityDTO;
 import com.myoffice.companyidentity.entity.CompanyIdentity;
+import com.myoffice.companyidentity.exceptions.DataNotFoundException;
 import com.myoffice.companyidentity.mappers.GetCompanyIdentityDTOMapper;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
 import com.myoffice.companyidentity.service.companyidentity.GetCompanyIdentityService;
@@ -35,7 +36,7 @@ public class GetCompanyIdentityServiceImpl implements GetCompanyIdentityService 
 
     private CompanyIdentity validateCompanyIdentity(String companyId){
         return companyIdentityRepository.findByCompanyId(companyId)
-                .orElseThrow(() -> new EntityNotFoundException("Company identity not found for company ID: " + companyId));
+                .orElseThrow(() -> new DataNotFoundException("Company identity not found for company ID: " + companyId));
     }
 
 

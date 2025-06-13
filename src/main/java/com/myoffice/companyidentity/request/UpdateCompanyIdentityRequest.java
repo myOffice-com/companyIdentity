@@ -2,6 +2,7 @@ package com.myoffice.companyidentity.request;
 
 
 import com.myoffice.companyidentity.util.FieldErrorConstants;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -22,6 +23,7 @@ public record UpdateCompanyIdentityRequest(
      */
     @NotNull(message = FieldErrorConstants.COMPANY_NAME_CANNOT_BE_NULL)
     @Size(min = 1, max = 100, message = "Company name must be between 1 and 100 characters")
+    @NotBlank(message = "Company name cannot be blank")
     String companyName,
 
     /**
@@ -35,6 +37,7 @@ public record UpdateCompanyIdentityRequest(
      * CGI (Corporate Group Identifier) number of the company.
      */
     @NotNull(message = FieldErrorConstants.CGI_NUMBER_CANNOT_BE_NULL)
+    @NotBlank(message = "CGI number cannot be blank")
     String cgiNumber,
 
     /**
@@ -42,6 +45,7 @@ public record UpdateCompanyIdentityRequest(
      */
     @NotNull(message = FieldErrorConstants.COMPANY_ADMIN_ID_CANNOT_BE_NULL)
     @Size(min = 1, max = 10, message = FieldErrorConstants.COMPANY_ID_MUST_BE_EXACTLY_10_CHARACTERS_LONG)
+    @NotBlank(message = "Company admin ID cannot be blank")
     String companyAdminId,
 
     /**
@@ -49,6 +53,7 @@ public record UpdateCompanyIdentityRequest(
      */
     @NotNull(message = FieldErrorConstants.PASSWORD_CANNOT_BE_NULL)
     @Size(min = 8, max = 50, message = FieldErrorConstants.PASSWORD_MUST_BE_BETWEEN_8_AND_50_CHARACTERS)
+    @NotBlank(message = "Password cannot be blank")
     String password,
 
     /**

@@ -7,6 +7,7 @@ import com.myoffice.companyidentity.request.CreateCompanyIdentityRequest;
 import com.myoffice.companyidentity.response.CreateCompanyIdentityResponse;
 import com.myoffice.companyidentity.service.companyidentity.CreateCompanyIdentityService;
 import com.myoffice.companyidentity.util.IdGenerator;
+import com.myoffice.companyidentity.validators.CreateCompanyIdentityValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +16,12 @@ public class CreateCompanyIdentityServiceImpl implements CreateCompanyIdentitySe
 
     private final CompanyIdentityRepository companyIdentityRepository;
     private final IdGenerator idGenerator;
+    private final CreateCompanyIdentityValidator validator;
 
-    public CreateCompanyIdentityServiceImpl(CompanyIdentityRepository companyIdentityRepository, IdGenerator idGenerator) {
+    public CreateCompanyIdentityServiceImpl(CompanyIdentityRepository companyIdentityRepository, IdGenerator idGenerator, CreateCompanyIdentityValidator validator) {
         this.companyIdentityRepository = companyIdentityRepository;
         this.idGenerator = idGenerator;
+        this.validator = validator;
     }
 
     /**
@@ -32,6 +35,7 @@ public class CreateCompanyIdentityServiceImpl implements CreateCompanyIdentitySe
     @Transactional
     @Override
     public CreateCompanyIdentityResponse createCompanyIdentity(CreateCompanyIdentityRequest request) {
+        validator.validateCompanyIdentity(request);
         CompanyIdentity companyIdentity = CreateCompanyIdentityMapper.INSTANCE.createCompanyIdentityRequestToEntity(request);
         companyIdentity.setCompanyId(idGenerator.generateId(10));
         return CreateCompanyIdentityMapper.INSTANCE.companyIdentityToCreateCompanyIdentityResponse(companyIdentityRepository.save(companyIdentity));

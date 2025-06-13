@@ -20,4 +20,10 @@ public interface CompanyIdentityRepository extends JpaRepository<CompanyIdentity
 
 
     List<CompanyIdentity> findByIsExpired(boolean b);
+
+    boolean existsByCompanyName(String companyName);
+
+    boolean existsByCgiNumber(String cgiNumber);
+
+    boolean existsByCompanyAdminId(String adminId);
 }
