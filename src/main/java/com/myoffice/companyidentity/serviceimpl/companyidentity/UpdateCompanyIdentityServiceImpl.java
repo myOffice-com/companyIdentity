@@ -2,10 +2,15 @@ package com.myoffice.companyidentity.serviceimpl.companyidentity;
 
 
 import com.myoffice.companyidentity.entity.CompanyIdentity;
+import com.myoffice.companyidentity.exceptions.DataNotFoundException;
+import com.myoffice.companyidentity.exceptions.ResponseCodes;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
 import com.myoffice.companyidentity.request.UpdateCompanyIdentityRequest;
 import com.myoffice.companyidentity.service.companyidentity.UpdateCompanyIdentityService;
+import com.myoffice.companyidentity.validators.UpdateCompanyIdentityValidator;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +22,13 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UpdateCompanyIdentityServiceImpl.class);
 
     private final CompanyIdentityRepository companyIdentityRepository;
+    private final UpdateCompanyIdentityValidator updateCompanyIdentityValidator;
+    private final MessageSource messageSource;
 
-    public UpdateCompanyIdentityServiceImpl(CompanyIdentityRepository companyIdentityRepository) {
+    public UpdateCompanyIdentityServiceImpl(CompanyIdentityRepository companyIdentityRepository, UpdateCompanyIdentityValidator updateCompanyIdentityValidator, MessageSource messageSource) {
         this.companyIdentityRepository = companyIdentityRepository;
+        this.updateCompanyIdentityValidator = updateCompanyIdentityValidator;
+        this.messageSource = messageSource;
     }
 
 
@@ -34,6 +43,7 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
     @Transactional
     @Override
     public void updateCompanyIdentity(String companyId,UpdateCompanyIdentityRequest request) {
+        updateCompanyIdentityValidator.validateCompanyIdentity(request,companyId);
         CompanyIdentity companyIdentity = getCompanyIdentity(companyId);
         mergeCompanyIdentity(companyIdentity, request);
         companyIdentityRepository.save(companyIdentity);
@@ -50,7 +60,7 @@ public class UpdateCompanyIdentityServiceImpl implements UpdateCompanyIdentitySe
     private CompanyIdentity getCompanyIdentity(String companyId) {
         return companyIdentityRepository.findById(companyId)
                 .orElseThrow(() ->
-                        new EntityNotFoundException("Company identity not found for ID: " + companyId)
+                        new DataNotFoundException(messageSource.getMessage(ResponseCodes.COMPANY_ID_NOT_FOUND,null, LocaleContextHolder.getLocale()))
                 );
     }
 

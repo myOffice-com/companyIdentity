@@ -1,6 +1,9 @@
 package com.myoffice.companyidentity.serviceimpl.roles;
 
 import com.myoffice.companyidentity.entity.CompanyRoles;
+import com.myoffice.companyidentity.exceptions.DataNotFoundException;
+import com.myoffice.companyidentity.exceptions.DuplicateDataException;
+import com.myoffice.companyidentity.exceptions.ResponseCodes;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
 import com.myoffice.companyidentity.repository.CompanyRolesRepository;
 import com.myoffice.companyidentity.request.CreateCompanyRolesRequest;
@@ -9,6 +12,8 @@ import com.myoffice.companyidentity.util.IdGenerator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,18 +30,17 @@ public class CreateCompanyRolesServiceImpl implements CreateCompanyRolesService 
     private static final Logger logger = LoggerFactory.getLogger(CreateCompanyRolesServiceImpl.class);
 
     private final CompanyRolesRepository companyRolesRepository;
-    private final IdGenerator idGenerator;
+    private final MessageSource messageSource;
     private final CompanyIdentityRepository companyIdentityRepository;
 
     /**
      * Constructor for dependency injection.
      *
      * @param companyRolesRepository Repository to manage CompanyRoles persistence.
-     * @param idGenerator Utility to generate unique IDs for roles (if not using @GeneratedValue).
      */
-    public CreateCompanyRolesServiceImpl(CompanyRolesRepository companyRolesRepository, IdGenerator idGenerator, CompanyIdentityRepository companyIdentityRepository) {
+    public CreateCompanyRolesServiceImpl(CompanyRolesRepository companyRolesRepository, MessageSource messageSource, CompanyIdentityRepository companyIdentityRepository) {
         this.companyRolesRepository = companyRolesRepository;
-        this.idGenerator = idGenerator;
+        this.messageSource = messageSource;
         this.companyIdentityRepository = companyIdentityRepository;
     }
 
@@ -71,7 +75,7 @@ public class CreateCompanyRolesServiceImpl implements CreateCompanyRolesService 
 
     private void validateCompanyId(String companyId){
         companyIdentityRepository.findByCompanyId(companyId)
-                .orElseThrow(() -> new IllegalArgumentException("Company with ID " + companyId + " does not exist."));
+                .orElseThrow(() -> new DataNotFoundException(messageSource.getMessage(ResponseCodes.COMPANY_ID_NOT_FOUND,null, LocaleContextHolder.getLocale())));
     }
 
 

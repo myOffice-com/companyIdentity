@@ -1,10 +1,13 @@
 package com.myoffice.companyidentity.validatorsimpl;
 
 import com.myoffice.companyidentity.exceptions.DuplicateDataException;
+import com.myoffice.companyidentity.exceptions.ResponseCodes;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
 import com.myoffice.companyidentity.request.CreateCompanyIdentityRequest;
 import com.myoffice.companyidentity.validators.CreateCompanyIdentityValidator;
 import org.slf4j.Logger;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,8 +17,11 @@ public class CreateCompanyIdentityValidatorImpl implements CreateCompanyIdentity
 
     private final CompanyIdentityRepository companyIdentityRepository;
 
-    public CreateCompanyIdentityValidatorImpl(CompanyIdentityRepository companyIdentityRepository) {
+    private final MessageSource messageSource;
+
+    public CreateCompanyIdentityValidatorImpl(CompanyIdentityRepository companyIdentityRepository, MessageSource messageSource) {
         this.companyIdentityRepository = companyIdentityRepository;
+        this.messageSource = messageSource;
     }
 
 
@@ -34,7 +40,7 @@ public class CreateCompanyIdentityValidatorImpl implements CreateCompanyIdentity
 
         if (companyIdentityRepository.existsByCompanyName(companyName)) {
             logger.error("Company name already exists: {}", companyName);
-            throw new DuplicateDataException("Company name already exists: " + companyName);
+            throw new DuplicateDataException(messageSource.getMessage(ResponseCodes.COMPANY_NAME_ALREADY_EXIST,null, LocaleContextHolder.getLocale()));
         }
 
     }
@@ -43,7 +49,7 @@ public class CreateCompanyIdentityValidatorImpl implements CreateCompanyIdentity
 
         if (companyIdentityRepository.existsByCgiNumber(cgiNumber)) {
             logger.error("CGI number already exists: {}", cgiNumber);
-            throw new DuplicateDataException("CGI number already exists: " + cgiNumber);
+            throw new DuplicateDataException(messageSource.getMessage(ResponseCodes.CGI_NUMBER_ALREADY_EXIST,null,LocaleContextHolder.getLocale()));
         }
 
     }
@@ -53,7 +59,7 @@ public class CreateCompanyIdentityValidatorImpl implements CreateCompanyIdentity
 
         if( companyIdentityRepository.existsByCompanyAdminId(adminId)) {
             logger.error("Admin ID already exists: {}", adminId);
-            throw new DuplicateDataException("Admin ID already exists: " + adminId);
+            throw new DuplicateDataException(messageSource.getMessage(ResponseCodes.ADMIN_ID_ALREADY_EXIST,null,LocaleContextHolder.getLocale()));
         }
 
     }

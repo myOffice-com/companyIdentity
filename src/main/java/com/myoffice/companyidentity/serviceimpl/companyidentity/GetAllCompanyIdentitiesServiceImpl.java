@@ -2,9 +2,13 @@ package com.myoffice.companyidentity.serviceimpl.companyidentity;
 
 import com.myoffice.companyidentity.dto.GetCompanyIdentitiesDTO;
 import com.myoffice.companyidentity.entity.CompanyIdentity;
+import com.myoffice.companyidentity.exceptions.DuplicateDataException;
+import com.myoffice.companyidentity.exceptions.ResponseCodes;
 import com.myoffice.companyidentity.mappers.GetAllCompanyIdentitiesMapper;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
 import com.myoffice.companyidentity.service.companyidentity.GetAllCompanyIdentitiesService;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +20,8 @@ public class GetAllCompanyIdentitiesServiceImpl implements GetAllCompanyIdentiti
 
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(GetAllCompanyIdentitiesServiceImpl.class);
 
+    private final MessageSource messageSource;
+
     private static final String ALL_COMPANY_IDENTITIES = "all";
 
     private static final String ALL_ACTIVE_COMPANY_IDENTITIES = "active";
@@ -24,7 +30,8 @@ public class GetAllCompanyIdentitiesServiceImpl implements GetAllCompanyIdentiti
 
     private final CompanyIdentityRepository companyIdentityRepository;
 
-    public GetAllCompanyIdentitiesServiceImpl(CompanyIdentityRepository companyIdentityRepository) {
+    public GetAllCompanyIdentitiesServiceImpl(MessageSource messageSource, CompanyIdentityRepository companyIdentityRepository) {
+        this.messageSource = messageSource;
         this.companyIdentityRepository = companyIdentityRepository;
     }
 
@@ -45,7 +52,7 @@ public class GetAllCompanyIdentitiesServiceImpl implements GetAllCompanyIdentiti
             case ALL_INACTIVE_COMPANY_IDENTITIES -> companyIdentityRepository.findByIsExpired(true);
             default -> {
                 logger.error("Invalid filter key provided: {}", filterKey);
-                throw new IllegalArgumentException("Invalid filter key provided: " + filterKey);
+                throw new DuplicateDataException(messageSource.getMessage(ResponseCodes.INVALID_FILTER_KEY_PROVIDED,null, LocaleContextHolder.getLocale()));
             }
         };
 

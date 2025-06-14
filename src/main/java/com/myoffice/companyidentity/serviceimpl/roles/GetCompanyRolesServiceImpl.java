@@ -2,10 +2,14 @@ package com.myoffice.companyidentity.serviceimpl.roles;
 
 import com.myoffice.companyidentity.dto.GetCompanyRolesDTO;
 import com.myoffice.companyidentity.entity.CompanyRoles;
+import com.myoffice.companyidentity.exceptions.DataNotFoundException;
+import com.myoffice.companyidentity.exceptions.ResponseCodes;
 import com.myoffice.companyidentity.repository.CompanyIdentityRepository;
 import com.myoffice.companyidentity.repository.CompanyRolesRepository;
 import com.myoffice.companyidentity.service.roles.GetCompanyRolesService;
 import org.slf4j.Logger;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +26,12 @@ public class GetCompanyRolesServiceImpl implements GetCompanyRolesService {
 
     private final CompanyIdentityRepository companyIdentityRepository;
     private final CompanyRolesRepository companyRolesRepository;
+    private final MessageSource messageSource;
 
-    public GetCompanyRolesServiceImpl(CompanyIdentityRepository companyIdentityRepository, CompanyRolesRepository companyRolesRepository) {
+    public GetCompanyRolesServiceImpl(CompanyIdentityRepository companyIdentityRepository, CompanyRolesRepository companyRolesRepository, MessageSource messageSource) {
         this.companyIdentityRepository = companyIdentityRepository;
         this.companyRolesRepository = companyRolesRepository;
+        this.messageSource = messageSource;
     }
 
 
@@ -57,7 +63,7 @@ public class GetCompanyRolesServiceImpl implements GetCompanyRolesService {
     private void validateCompanyId(String companyId) {
         logger.info("Validating company ID: {}", companyId);
         companyIdentityRepository.findByCompanyId(companyId)
-                .orElseThrow(() -> new IllegalArgumentException("Company with ID " + companyId + " does not exist."));
+                .orElseThrow(() -> new DataNotFoundException(messageSource.getMessage(ResponseCodes.COMPANY_ID_NOT_FOUND,null, LocaleContextHolder.getLocale())));
     }
 
     /**
