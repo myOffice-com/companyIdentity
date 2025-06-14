@@ -26,4 +26,10 @@ public interface CompanyIdentityRepository extends JpaRepository<CompanyIdentity
     boolean existsByCgiNumber(String cgiNumber);
 
     boolean existsByCompanyAdminId(String adminId);
+
+    Optional<CompanyIdentity> findByCgiNumber(String newCgiNumber);
+
+    Optional<CompanyIdentity> findByCompanyName(String newCompanyName);
+
+    Optional<CompanyIdentity> findByCompanyAdminId(String newAdminId);
 }
